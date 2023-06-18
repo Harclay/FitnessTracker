@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { fetchUser } from "./UserApi";
+import { fetchUser } from "../../ajax-requests/Api";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = ({ setToken }) => {
@@ -8,8 +8,6 @@ const SignUp = ({ setToken }) => {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
-
-
 
   async function handleSubmit(ev) {
     ev.preventDefault();
@@ -23,7 +21,7 @@ const SignUp = ({ setToken }) => {
       window.localStorage.setItem("token: ", results.token);
       navigate("/");
     } else if (results.error) {
-      setError(results.error)
+      setError(results.error);
     }
   }
 
@@ -51,7 +49,7 @@ const SignUp = ({ setToken }) => {
         </div>
 
         {error ? <p>{error}</p> : null}
-        
+
         <button type="submit">Complete</button>
       </form>
     </>

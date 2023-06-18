@@ -3,10 +3,13 @@ import Header from "./Header";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Login, SignUp } from "./user";
+import { Activities } from "./activities";
+import { fetchActivities } from "../ajax-requests/Api";
 
 const App = () => {
   const [signedIn, setSignedIn] = useState(false);
   const [token, setToken] = useState("");
+  const [activities, setActivities] = useState([]);
 
   const tokenCheck = () => {
     if (window.localStorage.getItem("token: ")) {
@@ -18,6 +21,19 @@ const App = () => {
     tokenCheck();
   }, [token]);
 
+  const getActivities = async () => {
+    try {
+      const result = await fetchActivities(token);
+      setActivities(result);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getActivities();
+  });
+
   return (
     <>
       <BrowserRouter>
@@ -27,7 +43,18 @@ const App = () => {
           <Route exact path="/" />
           <Route exact path="/routines" />
           <Route exact path="/myroutines" />
-          <Route exact path="/activities" />
+          <Route
+            exact
+            path="/activities"
+            element={
+              <Activities
+                token={token}
+                activities={activities}
+                signedIn={signedIn}
+                getActivities={getActivities}
+              />
+            }
+          />
           <Route
             exact
             path="/signup"

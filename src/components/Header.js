@@ -20,7 +20,7 @@ const Header = ({ signedIn, setToken, token }) => {
             </Link>
           ) : null}
 
-          <Link to="/actvities" id="actvities">
+          <Link to="/activities" id="actvities">
             Activities
           </Link>
           {signedIn ? (

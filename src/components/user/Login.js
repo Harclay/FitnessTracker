@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { loginUser } from "./UserApi";
+import { loginUser } from "../../ajax-requests/Api";
 import { useNavigate } from "react-router-dom";
-import { myData } from "./UserApi";
+import { myData } from "../../ajax-requests/Api";
 
 const Login = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   async function handleSubmit(ev) {
@@ -15,18 +15,18 @@ const Login = ({ setToken }) => {
 
     const results = await loginUser(user);
 
-    console.log(results.token)
+    console.log(results.token);
 
-    if(!results.error) {
+    if (!results.error) {
       setToken(results.token);
-      console.log("hi")
+      console.log("hi");
       window.localStorage.setItem("token: ", results.token);
       navigate("/");
 
       const result = await myData(results.token);
       return result;
     } else if (results.error) {
-      setError(results.error)
+      setError(results.error);
     }
   }
 
