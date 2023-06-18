@@ -1,16 +1,6 @@
-import { Register } from "./user/SignUp";
+import { Link } from "react-router-dom";
 
-import { BrowserRouter, Link } from "react-router-dom";
-
-let signedIn = true;
-
-const LogOut = () => {
-    return (
-        <h1>temporary signed in = false</h1>
-    )
-}
-
-const Header = () => {
+const Header = ({ signedIn, setToken, token }) => {
   return (
     <>
       <div className="header">
@@ -23,19 +13,29 @@ const Header = () => {
           <Link to="/routines" id="link">
             Routines
           </Link>
-          {
-            //  if (signedIn === true) {(
-            //     <Link to="/myroutines" id="link">
-            //         My Routines
-            //     </Link>
-            //     )
-            // }
-          }
+
+          {signedIn ? (
+            <Link to="/myroutines" id="link">
+              My Routines
+            </Link>
+          ) : null}
+
           <Link to="/actvities" id="actvities">
             Activities
           </Link>
-          {!signedIn ? (
-            <LogOut />
+          {signedIn ? (
+            <Link
+              to="/"
+              id="link"
+              onClick={() => {
+                setToken(null);
+                window.localStorage.removeItem("token: ", token);
+                console.log(token);
+                window.location.reload();
+              }}
+            >
+              Log Out
+            </Link>
           ) : (
             <>
               <Link to="/signup" id="link">

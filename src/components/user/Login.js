@@ -1,27 +1,30 @@
 import React, { useState } from "react";
-import { fetchUser } from "./UserApi";
+import { loginUser } from "./UserApi";
 import { useNavigate } from "react-router-dom";
+import { myData } from "./UserApi";
 
-const SignUp = ({ setToken }) => {
+const Login = ({ setToken }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
+  const [error, setError] = useState("")
   const navigate = useNavigate();
-
-
 
   async function handleSubmit(ev) {
     ev.preventDefault();
-
     const user = { username, password };
 
-    const results = await fetchUser(user);
+    const results = await loginUser(user);
 
-    if (!results.error) {
+    console.log(results.token)
+
+    if(!results.error) {
       setToken(results.token);
+      console.log("hi")
       window.localStorage.setItem("token: ", results.token);
       navigate("/");
+
+      const result = await myData(results.token);
+      return result;
     } else if (results.error) {
       setError(results.error)
     }
@@ -29,33 +32,33 @@ const SignUp = ({ setToken }) => {
 
   return (
     <>
-      <h1> SIGN UP </h1>
+      <h1>LOG IN </h1>
 
       <form onSubmit={handleSubmit}>
         <div>
-          <p>Create Username:</p>
+          <p>Your Username:</p>
           <input
             type="text"
-            placeholder="at least 8 characters"
+            placeholder="Enter Your Username"
             onChange={(ev) => setUsername(ev.target.value)}
           />
         </div>
 
         <div>
-          <p>Create Password:</p>
+          <p>Your Password:</p>
           <input
             type="password"
-            placeholder="at least 8 characters"
+            placeholder="Enter Your Password"
             onChange={(ev) => setPassword(ev.target.value)}
           />
         </div>
 
         {error ? <p>{error}</p> : null}
-        
+
         <button type="submit">Complete</button>
       </form>
     </>
   );
 };
 
-export default SignUp;
+export default Login;

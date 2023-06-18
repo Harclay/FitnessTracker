@@ -2,10 +2,11 @@
 
 const BASE_URL = "http://fitnesstrac-kr.herokuapp.com/api";
 
-
 ///////////////////////////////////////////// USER API CALLS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
- export const fetchUser = async (user) => {
+export const fetchUser = async (user) => {
+
+  const {username, password} = user
   try {
     const response = await fetch(`${BASE_URL}/users/register`, {
       method: "POST",
@@ -13,13 +14,16 @@ const BASE_URL = "http://fitnesstrac-kr.herokuapp.com/api";
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        user,
+        username: username,
+        password: password
       }),
     });
 
-    const result = await response.json;
+    const result = await response.json();
 
-    console.log(result, "hello");
+    console.log(result, "hello from fetchUser");
+
+
     return result;
   } catch (error) {
     console.error(error, "ERROR IN FETCHUSER");
@@ -27,41 +31,42 @@ const BASE_URL = "http://fitnesstrac-kr.herokuapp.com/api";
 };
 
 export const loginUser = async (user) => {
-    try {
-        const response = await fetch(`${BASE_URL}/users/login`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "appl;ication/json",
-            },
-            body: JSON.stringify({
-                user,
-            })
-        })
 
-        const result = await response.json();
+  const {username, password} = user
+  try {
+    const response = await fetch(`${BASE_URL}/users/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: username,
+        password: password
+      }),
+    });
 
-        return result
-
-    } catch (error) {
-        console.error(error, "ERROR IN loginUser")
-    }
-}
+    const result = await response.json();
+console.log(result, "hello from loginUser")
+    return result;
+  } catch (error) {
+    console.error(error, "ERROR IN loginUser");
+  }
+};
 
 export const myData = async (token) => {
-    try {
-        const response = await fetch(`${BASE_URL}/users/me`, {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-            }
-        })
+  try {
+    const response = await fetch(`${BASE_URL}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-        const result = await response.json();
+    const result = await response.json();
 
-        return result
-
-    } catch (error) {
-        console.error(error, "ERROR IN myData")
-    }
-}
+    return result;
+  } catch (error) {
+    console.error(error, "ERROR IN myData");
+  }
+};
 //////////////////////////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
