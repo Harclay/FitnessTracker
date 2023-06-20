@@ -65,10 +65,10 @@ export const myData = async (token) => {
   }
 };
 
-export const getUserRoutines = async (token) => {
+export const getUserRoutines = async (token, username) => {
 
   try {
-    const response = await fetch(`${BASE_URL}/users/albert/routines`, {
+    const response = await fetch(`${BASE_URL}/users/${username}/routines`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
@@ -81,6 +81,7 @@ export const getUserRoutines = async (token) => {
     console.error(err);
   }
 }
+
 
 ////////////////////////////////////////////////////////// ACTIVITIES API CALLS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -142,7 +143,7 @@ export const fetchRoutines = async () => {
   }
   }
 
-  export const makeRoutine = async (token) => {
+  export const makeRoutine = async (newRoutine, token) => {
     try {
       const response = await fetch(`${BASE_URL}/routines`, {
         method: "POST",
@@ -151,10 +152,11 @@ export const fetchRoutines = async () => {
         'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
-          name: 'Long Cardio Routine',
-          goal: 'To get your heart pumping!',
-          isPublic: true
+          name: newRoutine.name,
+          goal: newRoutine.goal,
+          isPublic: newRoutine.isPublic
         })
+        
       });
       const result = await response.json();
       console.log(result);

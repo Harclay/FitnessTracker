@@ -1,61 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { getUserRoutines } from "../ajax-requests/Api";
+import { useParams } from "react-router-dom";
 
-function UserRoutines({ token, username }) {
+function UserRoutines({ token }) {
+  const { username } = useParams();
   const [routines, setRoutines] = useState([]);
 
-    async function fetchUserRoutines () {
-        try{
-           const result = await getUserRoutines(token)
-           console.log(result, "from getUsersRoutines")
-           return result
-        } catch(err) {
-            console.error(err)
+  useEffect(() => {
+    async function fetchUserRoutines() {
+        try {
+          const result = await getUserRoutines(token, username);
+          if (Array.isArray(result)) {
+            setRoutines(result);
+          }
+        } catch (err) {
+          console.error(err);
         }
-    }
+      }
 
     fetchUserRoutines();
+  }, [token, username]);
 
-//   const fetchRoutines = async () => {
-//     try {
-//       const result = await getUserRoutines(token);
-//       setRoutines(result);
-//       return result
-//     } catch (error) {
-//       console.error(error);
-//     }}
-
-//     useEffect(() => {
-//         fetchRoutines()
-//     }, [])
-
-//   return (
-//     <div>
-//       <h1>Routines for {username}</h1>
-//       {routines.map((routine) => (
-//         <div key={routine.id}>
-//           <h3>{routine.name}</h3>
-//           <p>Goal: {routine.goal}</p>
-//           <p>Creator: {routine.creatorName}</p>
-//           <h4>Activities:</h4>
-//           <ul>
-//             {routine.activities.map((activity) => (
-//               <li key={activity.id}>
-//                 <div>
-//                   <h5>{activity.name}</h5>
-//                   <p>Description: {activity.description}</p>
-//                   {activity.duration && (
-//                     <p>Duration: {activity.duration} minutes</p>
-//                   )}
-//                   {activity.count && <p>Count: {activity.count}</p>}
-//                 </div>
-//               </li>
-//             ))}
-//           </ul>
-//         </div>
-//       ))}
-//     </div>
-//   );
-}
+  return (
+    <div>
+      <>
+        <h1>Routines for {username}</h1>
+        {routines.map((routine) => (
+          <div key={routine.id}>
+            <h3>{routine.name}</h3>
+            <p>Goal: {routine.goal}</p>
+            <p>Creator: {routine.creatorName}</p>
+          </div>
+        ))}
+      </>
+    </div>
+  );}
 
 export default UserRoutines;

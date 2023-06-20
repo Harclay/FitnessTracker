@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { makeRoutine, getUserRoutines } from "../ajax-requests/Api";
+import { makeRoutine } from "../ajax-requests/Api";
 import UserRoutines from "./UserRoutines";
 
-
-function MyRoutines({ token, signedIn }) {
+function MyRoutines({ token, signedIn, username }) {
   const [newRoutineName, setNewRoutineName] = useState("");
   const [newRoutineGoal, setNewRoutineGoal] = useState("");
 
@@ -21,8 +20,6 @@ function MyRoutines({ token, signedIn }) {
       console.error("Error creating routine", error);
     }
   };
-
-  
 
   return (
     <>
@@ -45,7 +42,9 @@ function MyRoutines({ token, signedIn }) {
             />
             <button type="submit">Create</button>
           </form>
-          
+          <div>
+            <UserRoutines token={token} username={username}/>
+          </div>
         </>
       ) : (
         <h2>Login or Sign Up</h2>
