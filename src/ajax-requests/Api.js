@@ -65,6 +65,23 @@ export const myData = async (token) => {
   }
 };
 
+export const getUserRoutines = async (token) => {
+
+  try {
+    const response = await fetch(`${BASE_URL}/users/albert/routines`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    const result = await response.json();
+    console.log(result);
+    return result
+  } catch (err) {
+    console.error(err);
+  }
+}
+
 ////////////////////////////////////////////////////////// ACTIVITIES API CALLS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 export const fetchActivities = async () => {
@@ -107,3 +124,80 @@ export const createActivity = async (activity, token) => {
     console.error(err);
   }
 };
+
+//// routines ///
+export const fetchRoutines = async () => {
+  try {
+  const response = await fetch(`${BASE_URL}/routines`, {
+    headers: {
+    'Content-Type': 'application/json',
+    },
+  });
+  
+  const result = await response.json();
+  console.log(result);
+  return result
+  } catch (err) {
+  console.error(err);
+  }
+  }
+
+  export const makeRoutine = async (token) => {
+    try {
+      const response = await fetch(`${BASE_URL}/routines`, {
+        method: "POST",
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          name: 'Long Cardio Routine',
+          goal: 'To get your heart pumping!',
+          isPublic: true
+        })
+      });
+      const result = await response.json();
+      console.log(result);
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+//   export const patchRoutine = async () => {
+//     try {
+//       const response = await fetch(`${BASE_URL}/routines/6`, {
+//         method: "PATCH",
+//         headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${TOKEN_STRING_HERE}`
+//         },
+//         body: JSON.stringify({
+//           name: 'Long Cardio Day',
+//           goal: 'To get your heart pumping!'
+//         })
+//       });
+//       const result = await response.json();
+//       console.log(result);
+//       return result
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   }
+  
+//  export const deleteRoutine = async () => {
+//     try {
+//       const response = await fetch(`${BASE_URL}/routines/6`, {
+//         method: "DELETE",
+//         headers: {
+//         'Content-Type': 'application/json',
+//         'Authorization': `Bearer ${TOKEN_STRING_HERE}`
+//         },
+//       });
+//       const result = await response.json();
+//       console.log(result);
+//       return result
+//     } catch (err) {
+//       console.error(err);
+//     }
+// }
