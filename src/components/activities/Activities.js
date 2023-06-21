@@ -10,7 +10,7 @@ const Activities = ({ token, activities, signedIn, getActivities }) => {
   const nav = useNavigate();
 
   async function handleSubmit(event) {
-    event.preventDefault();
+    event.preventDefault(); 
 
     const activity = { activityName, activityDesc };
 

@@ -66,6 +66,8 @@ export const myData = async (token) => {
 };
 
 export const getUserRoutines = async (token, username) => {
+  console.log(username, "username from getUserRoutines request")
+
 
   try {
     const response = await fetch(`${BASE_URL}/users/${username}/routines`, {
@@ -166,40 +168,40 @@ export const fetchRoutines = async () => {
     }
   }
 
-//   export const patchRoutine = async () => {
-//     try {
-//       const response = await fetch(`${BASE_URL}/routines/6`, {
-//         method: "PATCH",
-//         headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${TOKEN_STRING_HERE}`
-//         },
-//         body: JSON.stringify({
-//           name: 'Long Cardio Day',
-//           goal: 'To get your heart pumping!'
-//         })
-//       });
-//       const result = await response.json();
-//       console.log(result);
-//       return result
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   }
+  export const patchRoutine = async (routineId, name, goal, token) => {
+    try {
+      const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
+        method: "PATCH",
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          name: name,
+          goal: goal
+        })
+      });
+      const result = await response.json();
+      console.log(result);
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+  }
   
-//  export const deleteRoutine = async () => {
-//     try {
-//       const response = await fetch(`${BASE_URL}/routines/6`, {
-//         method: "DELETE",
-//         headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': `Bearer ${TOKEN_STRING_HERE}`
-//         },
-//       });
-//       const result = await response.json();
-//       console.log(result);
-//       return result
-//     } catch (err) {
-//       console.error(err);
-//     }
-// }
+ export const deleteRoutine = async (token, routineId) => {
+    try {
+      const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
+        method: "DELETE",
+        headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+        },
+      });
+      const result = await response.json();
+      console.log(result);
+      return result
+    } catch (err) {
+      console.error(err);
+    }
+}
