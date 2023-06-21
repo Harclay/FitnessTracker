@@ -70,7 +70,7 @@ const App = () => {
           <Route
             exact
             path="/myroutines"
-            element={<MyRoutines token={token} signedIn={signedIn} username={username} />}
+            element={<MyRoutines token={token} signedIn={signedIn} username={username} activities={activities} />}
           />
           <Route
             path="/users/:username/routines"

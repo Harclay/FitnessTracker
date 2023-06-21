@@ -3,7 +3,8 @@ import { makeRoutine } from "../ajax-requests/Api";
 import UserRoutines from "./UserRoutines";
 
 
-function MyRoutines({ token, signedIn, username }) {
+
+function MyRoutines({ token, signedIn, username, activities }) {
   const [newRoutineName, setNewRoutineName] = useState("");
   const [newRoutineGoal, setNewRoutineGoal] = useState("");
   const [reloadRoutines, setReloadRoutines] = useState(false);
@@ -58,6 +59,8 @@ function MyRoutines({ token, signedIn, username }) {
             username={username}
             reloadRoutines={reloadRoutines}
             handleReloadRoutines={handleReloadRoutines}
+            activities={activities}
+            
           />
         </>
       ) : (

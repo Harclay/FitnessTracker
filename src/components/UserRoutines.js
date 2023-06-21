@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { getUserRoutines, deleteRoutine } from "../ajax-requests/Api";
 import EditRoutines from "./EditRoutines";
 import { useNavigate } from "react-router-dom";
+import AddActivityForm from "./AddActivityForm";
 
 
-function UserRoutines({ token, username, reloadRoutines }) {
+function UserRoutines({ token, username, reloadRoutines, activities }) {
   const [routines, setRoutines] = useState([]);
   const [initialName, setInitialName] = useState("");
   const [initialGoal, setInitialGoal] = useState("");
@@ -47,6 +48,13 @@ function UserRoutines({ token, username, reloadRoutines }) {
     }
   }
 
+  const handleSelectRoutine = async (routineId) => {
+    const routine = routines.find((routine) => routine.id === routineId);
+    if (routine) {
+      setRoutineId(routineId)
+    }
+  }
+
   return (
     <div>
       <h1>Routines for {username}</h1>
@@ -67,6 +75,21 @@ function UserRoutines({ token, username, reloadRoutines }) {
           <p>Creator: {routine.creatorName}</p>
           <button onClick={() => handleEditRoutine(routine.id)}>Edit</button>
           <button onClick={() => handleDeleteRoutine(routine.id)}>Delete</button>
+          <button onClick={() => handleSelectRoutine(routine.id)}>Select Routine</button>
+          <h4>Activities:</h4>
+          <ul>
+            {routine.activities.map((activity) => (
+              <li key={activity.id}>
+                <div>
+                  <h5>{activity.name}</h5>
+                  <p>Description: {activity.description}</p>
+                  {activity.duration && <p>Duration: {activity.duration} minutes</p>}
+                  {activity.count && <p>Count: {activity.count}</p>}
+                </div>
+              </li>
+            ))}
+          </ul>
+          <AddActivityForm activities={activities} routineId={routineId} fetchUserRoutines={fetchUserRoutines} token={token} username={username}/>
         </div>
       ))}
     </div>
