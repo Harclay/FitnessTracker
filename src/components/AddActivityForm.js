@@ -6,11 +6,11 @@ function AddActivityForm({ activities, routineId, fetchUserRoutines, token, user
   const [activityId, setActivityId] = useState("");
   const [count, setCount] = useState(0);
   const [duration, setDuration] = useState(0);
-  const nav = useNavigate("")
+  const nav = useNavigate("");
 
   const handleActivityChange = (event) => {
     setActivityId(event.target.value);
-    console.log(event.target.value, "selected activity id")
+    console.log(event.target.value, "selected activity id");
   };
 
   const handleCountChange = (event) => {
@@ -21,14 +21,18 @@ function AddActivityForm({ activities, routineId, fetchUserRoutines, token, user
     setDuration(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    attachActivity(routineId, activityId, count, duration);
-    setActivityId("");
-    setCount(0);
-    setDuration(0);
-    fetchUserRoutines(token, username)
-    nav("/myroutines")
+    try {
+      await attachActivity(routineId, activityId, count, duration);
+      setActivityId("");
+      setCount(0);
+      setDuration(0);
+      await fetchUserRoutines(token, username);
+      nav("/myroutines");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

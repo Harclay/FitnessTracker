@@ -7,9 +7,6 @@ const Header = ({ signedIn, setToken, token }) => {
         <h1 className="title">Fitness Trackr</h1>
 
         <nav id="links">
-          <Link to="/" id="link">
-            Home
-          </Link>
           <Link to="/routines" id="link">
             Routines
           </Link>

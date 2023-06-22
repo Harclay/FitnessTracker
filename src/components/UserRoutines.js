@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getUserRoutines, deleteRoutine } from "../ajax-requests/Api";
+import { getUserRoutines, deleteRoutine, deleteRoutineActivity } from "../ajax-requests/Api";
 import EditRoutines from "./EditRoutines";
 import { useNavigate } from "react-router-dom";
 import AddActivityForm from "./AddActivityForm";
+import EditActivityForm from "./EditActivityForm";
 
 
 function UserRoutines({ token, username, reloadRoutines, activities }) {
@@ -10,8 +11,11 @@ function UserRoutines({ token, username, reloadRoutines, activities }) {
   const [initialName, setInitialName] = useState("");
   const [initialGoal, setInitialGoal] = useState("");
   const [routineId, setRoutineId] = useState("");
-  const nav = useNavigate("")
+  const [activityId, setActivityId] = useState("");
+  const [routineActivityId, setRoutineActivityId] = useState("")
+  
 
+  const nav = useNavigate("");
 
   const fetchUserRoutines = async () => {
     try {
@@ -26,6 +30,7 @@ function UserRoutines({ token, username, reloadRoutines, activities }) {
 
   useEffect(() => {
     fetchUserRoutines();
+    nav("/myroutines")
   }, [token, username, reloadRoutines]);
 
   const handleEditRoutine = async (routineId) => {
@@ -39,29 +44,45 @@ function UserRoutines({ token, username, reloadRoutines, activities }) {
   };
 
   const handleDeleteRoutine = async (routineId) => {
-    const routine = routines.find((routine) => routine.id === routineId);
-    if (routine) {
-      await deleteRoutine(token, routineId)
+    try {
+      await deleteRoutine(token, routineId);
       console.log("Delete routine with ID:", routineId);
-      fetchUserRoutines(token, username)
-      nav("/myroutines")
+      await fetchUserRoutines(); 
+      nav("/myroutines");
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
 
   const handleSelectRoutine = async (routineId) => {
     const routine = routines.find((routine) => routine.id === routineId);
     if (routine) {
-      setRoutineId(routineId)
+      setRoutineId(routineId);
     }
-  }
+  };
+
+  const handleEditActivity = (activityId, routineActivityId) => {
+    setActivityId(activityId);
+    setRoutineActivityId(routineActivityId)
+    console.log(activityId, "activityId from button")
+    console.log(routineActivityId, "routineActivityId from button")
+  };
+
+  const handleDeleteActivity = async (routineActivityId) => {
+    try {
+      await deleteRoutineActivity(routineActivityId, token);
+      await fetchUserRoutines(); // Fetch user routines after deleting the activity
+      console.log("Deleted activity with routineActivityId:", routineActivityId);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
       <h1>Routines for {username}</h1>
       {initialName && initialGoal && (
         <EditRoutines
-          initialName={initialName}
-          initialGoal={initialGoal}
           routineId={routineId}
           token={token}
           fetchUserRoutines={fetchUserRoutines}
@@ -74,8 +95,12 @@ function UserRoutines({ token, username, reloadRoutines, activities }) {
           <p>Goal: {routine.goal}</p>
           <p>Creator: {routine.creatorName}</p>
           <button onClick={() => handleEditRoutine(routine.id)}>Edit</button>
-          <button onClick={() => handleDeleteRoutine(routine.id)}>Delete</button>
-          <button onClick={() => handleSelectRoutine(routine.id)}>Select Routine</button>
+          <button onClick={() => handleDeleteRoutine(routine.id)}>
+            Delete
+          </button>
+          <button onClick={() => handleSelectRoutine(routine.id)}>
+            Select Routine
+          </button>
           <h4>Activities:</h4>
           <ul>
             {routine.activities.map((activity) => (
@@ -83,13 +108,36 @@ function UserRoutines({ token, username, reloadRoutines, activities }) {
                 <div>
                   <h5>{activity.name}</h5>
                   <p>Description: {activity.description}</p>
-                  {activity.duration && <p>Duration: {activity.duration} minutes</p>}
+                  {activity.duration && (
+                    <p>Duration: {activity.duration} minutes</p>
+                  )}
                   {activity.count && <p>Count: {activity.count}</p>}
+                  {activityId === activity.id && (
+                    <EditActivityForm
+                      activity={activity}
+                      fetchUserRoutines={fetchUserRoutines}
+                      token={token}
+                      username={username}
+                      routineActivityId={routineActivityId}
+                    />
+                  )}
+                  <button onClick={() => handleEditActivity(activity.id, activity.routineActivityId)}>
+                    Edit
+                  </button>
+                  <button onClick={() => handleDeleteActivity(activity.routineActivityId)}>
+            Delete
+          </button>
                 </div>
               </li>
             ))}
           </ul>
-          <AddActivityForm activities={activities} routineId={routineId} fetchUserRoutines={fetchUserRoutines} token={token} username={username}/>
+          <AddActivityForm
+            activities={activities}
+            routineId={routineId}
+            fetchUserRoutines={fetchUserRoutines}
+            token={token}
+            username={username}
+          />
         </div>
       ))}
     </div>
