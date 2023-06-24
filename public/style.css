@@ -1,0 +1,207 @@
+html {
+  background-color: rgb(116, 6, 6)
+
+}
+
+.header {
+  background-color: rgb(245, 38, 38);
+  display: flex;
+    align-items: center;
+}
+
+.title {
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  text-align: center;
+  margin-left: 50px;
+  color: white;
+  -webkit-text-stroke: 1px black;
+  font-size: 40px;
+}
+
+.links {
+  display: flex;
+margin-right: 25%;
+
+}
+
+#link {
+    background-color: rgb(80, 95, 230);
+    border-style: solid;
+    color: black;
+   margin-left: 15%;
+    width: 100px;
+    height: 40px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top:5px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+}
+
+.loglinks {
+    display: flex; 
+    margin-left: 100%;
+}
+
+.log {
+    display: flex;
+    width: 100px;
+    height: 40px;
+}
+
+.pagetitle {
+    text-align: center;
+    color: rgb(255, 255, 255);
+    -webkit-text-stroke: 2px rgb(161, 162, 175);
+    font-size: 50px;
+}
+
+.routine {
+    background-color: cornflowerblue;
+    margin-bottom: 10px;
+    text-align: center;
+    width: 700px;
+    height: 650px;
+    color: white;
+    padding-bottom: 3px;
+    border-style: solid;
+    border-color: black;
+    margin-left: 10px;
+}
+
+.routineTitle {
+    font-size: 32px;
+    
+    
+}
+
+.routines {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    justify-content: center;
+}
+
+.activities {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+}
+
+.allactivities {
+  display: grid;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    justify-content: center;
+
+}
+.activity {
+  text-align: center;
+  background-color: cornflowerblue;
+  color: white;
+  width: 560px;
+  padding-bottom: 3px;
+  border-style: solid;
+  border-color: black;
+  margin-bottom: 10px;
+  margin-left: 3px;
+} 
+
+.createact {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  padding: 15px;
+  justify-content: space-between;
+  padding-bottom: 15px;
+  text-align: center;
+  border-style: solid;
+}
+
+.myroutines {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-evenly;
+  
+}
+
+.createroutine {
+  background-color: cornflowerblue;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 15px;
+  border-style: solid;
+  height: 420px;
+}
+
+.createroutineform {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  justify-content: space-evenly;
+}
+
+.crf {
+  display: flex;
+  align-content: space-evenly;
+  margin-top: 70px;
+  text-align: center;
+}
+
+.userroutines {
+  background-color: cornflowerblue;
+  padding: 15px;
+  border-style: solid;
+  text-align: center;
+}
+
+.userroutine {
+  background-color: white;
+  border-style: solid;
+  margin-top: 5px;
+}
+
+.signup {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+
+.sign {
+  background-color: white;
+  width: 400px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  font-size: 25px;
+  padding-bottom: 15px;
+  border-style: solid;
+  
+}
+
+.home {
+  text-align: center;
+
+}
+
+.title2 {
+
+  font-family: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+  text-align: center;
+  margin-left: 50px;
+  color: white;
+  -webkit-text-stroke: 1px black;
+  font-size: 60px;
+  margin-top: 50px;
+  text-transform: uppercase;
+}
+
+.sentence {
+  color: white;
+  font-size: 40px;
+}

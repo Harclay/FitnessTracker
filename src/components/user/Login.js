@@ -32,31 +32,34 @@ const Login = ({ setToken }) => {
 
   return (
     <>
-      <h1>LOG IN </h1>
+      <h1 className="pagetitle">LOG IN </h1>
+      <div className="signup">
+        <form onSubmit={handleSubmit} className="sign">
+          <div>
+            <p>Your Username:</p>
+            <input
+              type="text"
+              placeholder="Enter Your Username"
+              onChange={(ev) => setUsername(ev.target.value)}
+            />
+          </div>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <p>Your Username:</p>
-          <input
-            type="text"
-            placeholder="Enter Your Username"
-            onChange={(ev) => setUsername(ev.target.value)}
-          />
-        </div>
+          <div>
+            <p>Your Password:</p>
+            <input
+              type="password"
+              placeholder="Enter Your Password"
+              onChange={(ev) => setPassword(ev.target.value)}
+            />
+          </div>
 
-        <div>
-          <p>Your Password:</p>
-          <input
-            type="password"
-            placeholder="Enter Your Password"
-            onChange={(ev) => setPassword(ev.target.value)}
-          />
-        </div>
+          {error ? <p>{error}</p> : null}
 
-        {error ? <p>{error}</p> : null}
-
-        <button type="submit">Complete</button>
-      </form>
+          <button type="submit" className="crf">
+            Complete
+          </button>
+        </form>
+      </div>
     </>
   );
 };

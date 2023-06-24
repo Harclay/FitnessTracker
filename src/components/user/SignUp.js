@@ -27,31 +27,34 @@ const SignUp = ({ setToken }) => {
 
   return (
     <>
-      <h1> SIGN UP </h1>
+      <h1 className="pagetitle"> SIGN UP </h1>
+      <div className="signup">
+        <form onSubmit={handleSubmit} className="sign">
+          <div>
+            <p>Create Username</p>
+            <input
+              type="text"
+              placeholder="at least 8 characters"
+              onChange={(ev) => setUsername(ev.target.value)}
+            />
+          </div>
 
-      <form onSubmit={handleSubmit}>
-        <div>
-          <p>Create Username:</p>
-          <input
-            type="text"
-            placeholder="at least 8 characters"
-            onChange={(ev) => setUsername(ev.target.value)}
-          />
-        </div>
+          <div>
+            <p>Create Password</p>
+            <input
+              type="password"
+              placeholder="at least 8 characters"
+              onChange={(ev) => setPassword(ev.target.value)}
+            />
+          </div>
 
-        <div>
-          <p>Create Password:</p>
-          <input
-            type="password"
-            placeholder="at least 8 characters"
-            onChange={(ev) => setPassword(ev.target.value)}
-          />
-        </div>
+          {error ? <p>{error}</p> : null}
 
-        {error ? <p>{error}</p> : null}
-
-        <button type="submit">Complete</button>
-      </form>
+          <button type="submit" className="crf">
+            Complete
+          </button>
+        </form>
+      </div>
     </>
   );
 };

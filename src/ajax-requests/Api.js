@@ -65,6 +65,24 @@ export const myData = async (token) => {
   }
 };
 
+export const getUserRoutines = async (token, username) => {
+  console.log(username, "username from getUserRoutines request");
+
+  try {
+    const response = await fetch(`${BASE_URL}/users/${username}/routines`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
 ////////////////////////////////////////////////////////// ACTIVITIES API CALLS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 export const fetchActivities = async () => {
@@ -107,3 +125,131 @@ export const createActivity = async (activity, token) => {
     console.error(err);
   }
 };
+
+//// routines ///
+export const fetchRoutines = async () => {
+  try {
+    const response = await fetch(`${BASE_URL}/routines`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const makeRoutine = async (newRoutine, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/routines`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: newRoutine.name,
+        goal: newRoutine.goal,
+        isPublic: newRoutine.isPublic,
+      }),
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const patchRoutine = async (routineId, name, goal, token) => {
+  try {
+    const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        name: name,
+        goal: goal,
+      }),
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const deleteRoutine = async (token, routineId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/routines/${routineId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const attachActivity = async (
+  routineId,
+  activityId,
+  count,
+  duration
+) => {
+  try {
+    const response = await fetch(
+      `${BASE_URL}/routines/${routineId}/activities`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          activityId: activityId,
+          count: count,
+          duration: duration,
+        }),
+      }
+    );
+    const result = await response.json();
+    console.log(result);
+    return result;
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+/// routine_activities
+// export const updateRoutineActivites = async () => {
+//   try {
+//     const response = await fetch(`${BASE_URL}/routine_activities/11`, {
+//       method: "PATCH",
+//       headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${TOKEN_STRING_HERE}`
+//       },
+//       body: JSON.stringify({
+//         count: 2,
+//         duration: 30
+//       })
+//     });
+//     const result = await response.json();
+//     console.log(result);
+//     return result
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }

@@ -6,7 +6,7 @@ const Header = ({ signedIn, setToken, token }) => {
       <div className="header">
         <h1 className="title">Fitness Trackr</h1>
 
-        <nav id="links">
+        <nav id="links" className="links">
           <Link to="/" id="link">
             Home
           </Link>
@@ -20,33 +20,37 @@ const Header = ({ signedIn, setToken, token }) => {
             </Link>
           ) : null}
 
-          <Link to="/activities" id="actvities">
+          <Link to="/activities" id="link">
             Activities
           </Link>
-          {signedIn ? (
-            <Link
-              to="/"
-              id="link"
-              onClick={() => {
-                setToken(null);
-                window.localStorage.removeItem("token: ", token);
-                console.log(token);
-                window.location.reload();
-              }}
-            >
-              Log Out
-            </Link>
-          ) : (
-            <>
-              <Link to="/signup" id="link">
-                Sign Up
-              </Link>
 
-              <Link to="/login" id="link">
-                Log In
+          <div className="loglinks">
+            {signedIn ? (
+              <Link
+                to="/"
+                id="link"
+                className="log"
+                onClick={() => {
+                  setToken(null);
+                  window.localStorage.removeItem("token: ", token);
+                  console.log(token);
+                  window.location.reload();
+                }}
+              >
+                Log Out
               </Link>
-            </>
-          )}
+            ) : (
+              <>
+                <Link to="/signup" id="link" className="log">
+                  Sign Up
+                </Link>
+
+                <Link to="/login" id="link" className="log">
+                  Log In
+                </Link>
+              </>
+            )}
+          </div>
         </nav>
       </div>
     </>

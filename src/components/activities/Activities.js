@@ -26,36 +26,37 @@ const Activities = ({ token, activities, signedIn, getActivities }) => {
 
   return (
     <>
-      <h1>Activities</h1>
-
-      {signedIn ? (
-        <form onSubmit={handleSubmit}>
-          <h1>Create New Activity</h1>
-          <input
-            type="text"
-            placeholder="Create New Activity"
-            onChange={(event) => setActivityName(event.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="New Activity Description"
-            onChange={(event) => setActivityDesc(event.target.value)}
-          />
-          <button type="submit">Complete</button>
-        </form>
-      ) : null}
-
-      {error ? <h3>{error}</h3> : null}
-
+      <h1 className="pagetitle">Activities</h1>
       <div className="activities">
-        {activities.map((activity) => {
-          return (
-            <div key={activity.id}>
-              <h2>{activity.name}</h2>
-              <p>{activity.description}</p>
-            </div>
-          );
-        })}
+        {signedIn ? (
+          <form onSubmit={handleSubmit} className="createact">
+            <h1>Create New Activity</h1>
+            <input
+              type="text"
+              placeholder="Create New Activity"
+              onChange={(event) => setActivityName(event.target.value)}
+            />
+            <input
+              type="text"
+              placeholder="New Activity Description"
+              onChange={(event) => setActivityDesc(event.target.value)}
+            />
+            <button type="submit">Complete</button>
+          </form>
+        ) : null}
+
+        {error ? <h3>{error}</h3> : null}
+
+        <div className="allactivities">
+          {activities.map((activity) => {
+            return (
+              <div key={activity.id} className="activity">
+                <h2>{activity.name}</h2>
+                <p>{activity.description}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </>
   );
